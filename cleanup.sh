@@ -32,7 +32,7 @@ if [ ${#INDEXES[@]} -gt $LIMIT ]; then
   for index in ${INDEXES[@]:$LIMIT}; do
     if [ -n "$INDEXES" ]; then
       echo `date` " -- Deleting index: $index."
-      ACK=`curl -s -S -XDELETE "$HOST/$index/" | sed -e's/[{}]/''/g'`
+      ACK=`curl -s -S -XDELETE "$HOST/$index/" | sed -e's/[{}]/''/g' | sed -e's/\"//g'`
       if [ "$ACK" == "ok:true acknowledged:true" ]; then
         echo "-- $index acknowledgement: $ACK"
       else
